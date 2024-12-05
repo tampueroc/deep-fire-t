@@ -150,6 +150,7 @@ class FireDataset(Dataset):
 
 
         for seq_dir in sequence_dirs:
+            # Extract sequence ID (e.g., from "sequence_001" -> "001")
             seq_id = seq_dir.replace('sequence_', '')
             fire_seq_path = os.path.join(fire_frames_root, seq_dir)
             iso_seq_path = os.path.join(isochrones_root, seq_dir)
@@ -160,13 +161,13 @@ class FireDataset(Dataset):
 
             num_fire_frames = len(fire_frame_files)
             num_iso_frames = len(iso_frame_files)
+            assert num_fire_frames == num_iso_frames, f'Sequence {seq_id} length mismatch'
 
-            # Adjust num_samples to prevent index out of range
-            num_samples = min(num_fire_frames - self.sequence_length, num_iso_frames - self.sequence_length - 1)
             num_samples = min(
-                num_fire_frames - self.sequence_length + 1,
-                num_iso_frames - self.sequence_length
+                num_iso_frames - 1,
+                self.sequence_length - 1
             )
+
 
             if num_samples <= 0:
                 continue  # Skip sequences that are too short
@@ -175,8 +176,8 @@ class FireDataset(Dataset):
             for i in range(num_samples):
                 sample = {
                     'sequence_id': seq_id,
-                    'fire_frame_indices': list(range(i, i + self.sequence_length)),
-                    'iso_target_index': i + self.sequence_length,
+                    'fire_frame_indices': list(range(i)),
+                    'iso_target_index': i + 1,
                     'fire_seq_path': fire_seq_path,
                     'iso_seq_path': iso_seq_path,
                     'fire_frame_files': fire_frame_files,
