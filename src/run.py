@@ -8,7 +8,7 @@ home_directory = os.path.expanduser("~")
 
 # Change the current working directory to the home directory
 os.chdir(home_directory)
-data_dir = ""
+data_dir = "data/deep_crown_dataset/organized_spreads"
 transform = None
 train_dataset = FireDataset(
     data_dir=data_dir,
@@ -32,6 +32,7 @@ train_loader = DataLoader(
 
 for input_tensor, isochrone_mask in train_loader:
     print('Input tensor shape:', input_tensor.shape)
+    print('Isochrone mask shape:', isochrone_mask.shape)
     break
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
