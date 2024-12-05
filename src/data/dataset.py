@@ -207,8 +207,10 @@ class FireDataset(Dataset):
             past_frames_masks.append(frame_mask)
 
         # Stack the past frames to create a tensor
-        past_frames_tensor = torch.stack(past_frames_masks)  # Shape: [sequence_length, height, width]
-        past_frames_expanded = past_frames_tensor.unsqueeze(1)  # Shape: [sequence_length, 1, height, width]
+        if len(past_frames_masks) > 1:
+            past_frames_tensor = torch.stack(past_frames_masks).unsqueeze(1)  # Shape: [sequence_length, height, width]
+        else:
+            past_frames_tensor = past_frames_masks[0].unsqueeze(0).unsqueeze(0)  # Shape: [1, 1, height, width]
 
         # Load target isochrone
         iso_frame_file = sample['iso_frame_files'][sample['iso_target_index']]
