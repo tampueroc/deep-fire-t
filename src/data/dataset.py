@@ -210,7 +210,10 @@ class FireDataset(Dataset):
         if len(past_frames_masks) > 1:
             past_frames_tensor = torch.stack(past_frames_masks).unsqueeze(1)  # Shape: [sequence_length, height, width]
         else:
-            past_frames_tensor = past_frames_masks[0].unsqueeze(0).unsqueeze(0)  # Shape: [1, 1, height, width]
+            try:
+                past_frames_tensor = past_frames_masks[0].unsqueeze(0).unsqueeze(0)  # Shape: [1, 1, height, width]
+            except Exception:
+                print(sample)
 
         # Load target isochrone
         iso_frame_file = sample['iso_frame_files'][sample['iso_target_index']]
