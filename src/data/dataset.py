@@ -171,7 +171,7 @@ class FireDataset(Dataset):
             for i in range(max_possible_samples-1):
                 sample = {
                     'sequence_id': seq_id,
-                    'fire_frame_indices': list(range(0, i)),
+                    'fire_frame_indices': list(range(0, i)) if i != 0 else [0],
                     'iso_target_index': i+1,
                     'fire_seq_path': fire_seq_path,
                     'iso_seq_path': iso_seq_path,
