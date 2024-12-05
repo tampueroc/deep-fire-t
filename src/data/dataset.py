@@ -131,7 +131,7 @@ class FireDataset(Dataset):
 
         # Calculate split sizes
         total_sequences = len(unique_sequences)
-        print("Total sequences", sequence_indices)
+        print("Total sequences", total_sequences)
         train_size = int(0.8 * total_sequences)
         val_size = int(0.1 * total_sequences)
 
