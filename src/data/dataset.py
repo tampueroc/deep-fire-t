@@ -168,11 +168,11 @@ class FireDataset(Dataset):
                 continue
 
             # Create samples
-            for i in range(1, max_possible_samples + 1):
+            for i in range(max_possible_samples-1):
                 sample = {
                     'sequence_id': seq_id,
                     'fire_frame_indices': list(range(0, i)),
-                    'iso_target_index': i,
+                    'iso_target_index': i+1,
                     'fire_seq_path': fire_seq_path,
                     'iso_seq_path': iso_seq_path,
                     'fire_frame_files': fire_frame_files,
@@ -194,7 +194,6 @@ class FireDataset(Dataset):
 
     def __getitem__(self, idx):
         sample = self.samples[idx]
-        print(sample)
 
         # Load past fire frames and current fire frame
         past_frames_masks = []
