@@ -209,10 +209,10 @@ class FireDataset(Dataset):
 
         # Stack the past frames to create a tensor
         if len(past_frames_masks) > 1:
-            past_frames_tensor = torch.stack(past_frames_masks).unsqueeze(1)  # Shape: [sequence_length, height, width]
+            past_frames_expanded = torch.stack(past_frames_masks).unsqueeze(1)  # Shape: [sequence_length, height, width]
         else:
             try:
-                past_frames_tensor = past_frames_masks[0].unsqueeze(0).unsqueeze(0)  # Shape: [1, 1, height, width]
+                past_frames_expanded = past_frames_masks[0].unsqueeze(0).unsqueeze(0)  # Shape: [1, 1, height, width]
             except Exception:
                 print(sample)
 
