@@ -23,7 +23,7 @@ set_seed(42)
 
 
 class FireDataset(Dataset):
-    def __init__(self, data_dir, sequence_length=3, split='train', transform=None, weather: bool, topological_features: bool):
+    def __init__(self, data_dir, sequence_length=3, split='train', transform=None, weather: bool = False, topological_features: bool = False):
         self.data_dir = data_dir
         self.sequence_length = sequence_length
         self.transform = transform

@@ -30,7 +30,7 @@ train_loader = DataLoader(
     pin_memory=True
 )
 
-for (input_tensor, weather_tensor), isochrone_mask in train_loader:
+for input_tensor, isochrone_mask in train_loader:
     print('Input tensor shape:', input_tensor.shape)
     break
 
