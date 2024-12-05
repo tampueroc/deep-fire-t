@@ -60,6 +60,8 @@ def main():
         print('Input tensor shape:', input_tensor.shape)
         print('Isochrone mask shape:', isochrone_mask.shape)
         break
+    print('Dataset length:', len(train_loader))
+
 
 if __name__ == "__main__":
     main()
