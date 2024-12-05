@@ -169,10 +169,12 @@ class FireDataset(Dataset):
 
             # Create samples
             for i in range(max_possible_samples-1):
+                fire_frame_indices = list(range(0, i + 1))
+                iso_target_index = len(fire_frame_indices)
                 sample = {
                     'sequence_id': seq_id,
-                    'fire_frame_indices': list(range(0, i)) if i != 0 else [0],
-                    'iso_target_index': i+1,
+                    'fire_frame_indices': fire_frame_indices,
+                    'iso_target_index': iso_target_index,
                     'fire_seq_path': fire_seq_path,
                     'iso_seq_path': iso_seq_path,
                     'fire_frame_files': fire_frame_files,
