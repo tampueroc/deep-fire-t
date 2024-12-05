@@ -163,21 +163,16 @@ class FireDataset(Dataset):
             num_iso_frames = len(iso_frame_files)
             assert num_fire_frames == num_iso_frames, f'Sequence {seq_id} length mismatch'
 
-            num_samples = min(
-                num_iso_frames - 1,
-                self.sequence_length - 1
-            )
-
-
-            if num_samples <= 0:
-                continue  # Skip sequences that are too short
+            max_possible_samples = min(num_fire_frames, num_iso_frames, self.sequence_length)
+            if max_possible_samples < 2:  # At least two frames are needed for one valid sample
+                continue
 
             # Create samples
-            for i in range(num_samples):
+            for i in range(1, max_possible_samples + 1):
                 sample = {
                     'sequence_id': seq_id,
-                    'fire_frame_indices': list(range(i)),
-                    'iso_target_index': i + 1,
+                    'fire_frame_indices': list(range(0, i)),
+                    'iso_target_index': i,
                     'fire_seq_path': fire_seq_path,
                     'iso_seq_path': iso_seq_path,
                     'fire_frame_files': fire_frame_files,
@@ -199,6 +194,7 @@ class FireDataset(Dataset):
 
     def __getitem__(self, idx):
         sample = self.samples[idx]
+        print(sample)
 
         # Load past fire frames and current fire frame
         past_frames_masks = []
