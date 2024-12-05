@@ -176,7 +176,8 @@ class FireDataset(Dataset):
                     'fire_seq_path': fire_seq_path,
                     'iso_seq_path': iso_seq_path,
                     'fire_frame_files': fire_frame_files,
-                    'iso_frame_files': iso_frame_files
+                    'iso_frame_files': iso_frame_files,
+                    'max_possible_samples': max_possible_samples
                 }
                 self.samples.append(sample)
             sequence_indices.append(seq_id)
